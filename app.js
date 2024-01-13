@@ -15,11 +15,16 @@ app.use(express.json());
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
+// routes
+app.get("/", (req, res) => {
+  res.send(`<h1>it is working</h1>`);
+});
+
 const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    await connectDB(process.env.URL);
+    await connectDB(process.env.MONGO_URL);
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
