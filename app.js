@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const connectDB = require("./db/connect");
 
+const mainRouter = require("./routes/main");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
@@ -12,13 +13,11 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 app.use(express.static("./public"));
 app.use(express.json());
 
+// routes
+app.use("/api/v1", mainRouter);
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
-
-// routes
-app.get("/", (req, res) => {
-  res.send(`<h1>it is working</h1>`);
-});
 
 const port = process.env.PORT || 3000;
 
